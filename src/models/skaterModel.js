@@ -9,11 +9,11 @@ export const Skater = sequelize.define('Skater', {
     unique: true
   },
   nombre: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(50),
     allowNull: false
   },
   password: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(255),
     allowNull: false
   },
   anos_experiencia: {
@@ -34,6 +34,7 @@ export const Skater = sequelize.define('Skater', {
     defaultValue: false
   }
 }, {
+  timestamps: false,
   tableName: 'skaters'
 });
 

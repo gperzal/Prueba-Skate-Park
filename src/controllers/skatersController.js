@@ -9,6 +9,7 @@ const jwtSecret = process.env.JWT_SECRET
 // Controlador para registrar un nuevo participante
 export const registerSkater = async (req, res, next) => {
   const { email, nombre, password, anos_experiencia, especialidad, foto } = req.body;
+  console.log(req.body)
   try {
     // Verificar si el email ya está registrado
     const existingUser = await Skater.findOne({ where: { email } });
@@ -31,6 +32,7 @@ export const registerSkater = async (req, res, next) => {
     });
     res.status(201).json(skater);
   } catch (error) {
+    console.error('Error during Skater creation:', error.message);
     next(error);  // Pasa el error al middleware de manejo de errores
   }
 };

@@ -6,25 +6,15 @@ import skaterRoutes from './src/routes/skaterRoutes.js';
 import { engine } from 'express-handlebars';
 
 import errorHandler from './src/middlewares/errorHandler.js';
-import { validateSkater } from './src/middlewares/validateSkater.js';
 
 import sequelize from './src/config/dbConfig.js';
 
 
 // Middleware de manejo de errores siempre al final
 app.use(errorHandler);
-app.use(validateSkater);
 
 
-// Ejemplo de uso del middleware de validación en la ruta de registro
-app.post('/register', validateSkater, (req, res) => {
-  res.status(201).send('User registered');
-});
 
-// Ejemplo de uso del middleware de validación en la ruta de login
-app.post('/login', validateSkater, (req, res) => {
-  res.send('Logged In!');
-});
 
 
 
@@ -46,10 +36,7 @@ app.use('/api/skaters', skaterRoutes);
 const PORT = process.env.PORT || 3000;
 
 sequelize.sync().then(() => {
-  console.log("\nConexión a la base de datos establecida con éxito.");
   app.listen(PORT, () => {
-    console.log(`\nServidor corriendo en http://localhost:${PORT}\n`);
+      console.log(`\nServidor corriendo en http://localhost:${PORT}`);
   });
-}).catch(error => {
-  console.error('No se pudo conectar a la base de datos:', error);
 });

@@ -31,6 +31,13 @@ const validateSkater = [
         .isEmpty()
         .withMessage('Specialty must not be empty'),
 
+    // Validar estado
+    body('estado')
+        .isBoolean()
+        .withMessage('State must be a boolean value'),  
+
+
+
     // Middleware para manejar los resultados de la validación
     (req, res, next) => {
         const errors = validationResult(req);
