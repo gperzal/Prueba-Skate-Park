@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 // Suponiendo que tu secret está almacenado en variables de entorno
-const jwtSecret = process.env.JWT_SECRET || 'your_secret_key';
+const jwtSecret = process.env.JWT_SECRET
 
 const protect = (req, res, next) => {
     let token;
@@ -28,4 +28,16 @@ const protect = (req, res, next) => {
     }
 };
 
-export { protect };
+const authorizeAdmin = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        console.log(req.user);
+        console.log(req.user.role);
+        return res.status(403).json({ message: 'Access denied' });
+    }
+    next();
+};
+
+
+
+
+export { protect, authorizeAdmin };

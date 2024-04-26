@@ -1,0 +1,158 @@
+/* styles.css */
+body {
+  background-image: url("../img/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+
+
+
+/* Variables de color */
+:root {
+    --color-primary: #005f73;
+    --color-secondary: #0a9396;
+    --color-accent: #ee9b00;
+    --color-light: #e9d8a6;
+    --color-dark: #001219;
+  }
+  
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--color-dark);
+ }
+  
+  header {
+    color: white;
+    padding: 1rem;
+  }
+  
+
+  footer {
+    margin-top: auto; 
+   
+    color: white; 
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+  
+  nav a:hover {
+    background-color: var(--color-secondary);
+  }
+  
+  button {
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--color-secondary);
+  }
+  
+  /* Responsive design para formularios */
+  @media (max-width: 768px) {
+    form {
+      padding: 1rem;
+    }
+  }
+  
+  /* Animaciones */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  /* Animación suave para la aparición de elementos */
+.fadeInUp {
+  animation: fadeInUp 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+  /* Añadir un efecto de fade-in a los formularios */
+form {
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+/* Añadir un efecto de hover a los botones para mejorar la interactividad */
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  nav ul {
+    flex-direction: column;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* Navbar */
+
+.logo{
+  width: 4em;
+  height:  4em;
+}
+
+#currentPhoto img {
+  width: 100px;
+  height: auto;
+}
+
+
+.profile-picture {
+  width: 50px;  /* o el tamaño deseado */
+  height: 50px; /* proporcional al ancho para mantener la relación de aspecto */
+  background-size: cover;
+  background-position: center;
+}

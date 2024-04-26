@@ -32,6 +32,11 @@ export const Skater = sequelize.define('Skater', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'user',  // Todos los nuevos registros son usuarios por defecto
+    allowNull: false
   }
 }, {
   timestamps: false,

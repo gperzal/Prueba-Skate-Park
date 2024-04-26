@@ -1,0 +1,36 @@
+{{!< layouts/main }}
+
+<!-- Lista de participantes -->
+<section class="container w-50 mt-5">
+  <h2>Lista de Participantes</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Años de experiencia</th>
+        <th scope="col">Especialidad</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each skaters}}
+      <tr>
+          <td>{{this.id}}</td>
+          <td>
+            <div class="profile-picture" style="background-image: url(../{{this.foto}});"></div>
+          </td>
+          <td>{{this.nombre}}</td>
+          <td>{{this.anos_experiencia}}</td>
+          <td>{{this.especialidad}}</td>
+          {{#if this.estado}}
+          <td class="text-success font-weight-bold">Aprobado</td>
+          {{else}}
+          <td class="text-warning font-weight-bold">En revisión</td>
+          {{/if}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>

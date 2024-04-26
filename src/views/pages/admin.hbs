@@ -1,0 +1,57 @@
+{{!< layouts/main }}
+
+<!-- Lista de participantes para administración -->
+<section class="container mt-5">
+  <h2>Administración de Participantes</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Foto</th>
+        <th>Nombre</th>
+        <th>Experiencia</th>
+        <th>Especialidad</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each skaters}}
+      <tr>
+          <td>{{this.id}}</td>
+          <td>
+            <div class="profile-picture" style="background-image: url({{this.foto}});"></div>
+          </td>
+          <td>{{this.nombre}}</td>
+          <td>{{this.anos_experiencia}} años</td>
+          <td>{{this.especialidad}}</td>
+          {{#if this.estado}}
+          <td class="text-success font-weight-bold">Aprobado</td>
+          {{else}}
+          <td class="text-warning font-weight-bold">En revisión</td>
+          {{/if}}
+          <td>
+            {{#unless this.estado}}
+            <button class="btn btn-success btn-sm" onclick="aprobarSkater({{this.id}})">Aprobar</button>
+            {{else}}
+            <button class="btn btn-danger btn-sm" onclick="desaprobarSkater({{this.id}})">Desaprobar</button>
+            {{/unless}}
+          </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+
+<script>
+// Funciones para aprobar y desaprobar
+function aprobarSkater(id) {
+  // Lógica para enviar solicitud de aprobación
+  console.log('Aprobar skater ID:', id);
+}
+
+function desaprobarSkater(id) {
+  // Lógica para enviar solicitud de desaprobación
+  console.log('Desaprobar skater ID:', id);
+}
+</script>

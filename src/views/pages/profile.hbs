@@ -1,0 +1,39 @@
+{{!< layouts/main }}
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Tu Perfil</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form id="profileForm" action="/api/skaters/profile" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" value="{{user.nombre}}" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico (no puede ser cambiado)</label>
+          <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="anos_experiencia" class="form-label">Años de Experiencia</label>
+          <input type="number" class="form-control" id="anos_experiencia" name="anos_experiencia" value="{{user.anos_experiencia}}" required>
+        </div>
+        <div class="mb-3">
+          <label for="especialidad" class="form-label">Especialidad</label>
+          <input type="text" class="form-control" id="especialidad" name="especialidad" value="{{user.especialidad}}" required>
+        </div>
+        <div class="mb-3">
+          <label for="foto" class="form-label">Foto de Perfil (opcional)</label>
+          <input type="file" class="form-control" id="foto" name="foto">
+          <div id="currentPhoto">
+            <img src="{{user.foto}}" alt="Tu foto actual" class="img-thumbnail mt-3">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Nueva Contraseña (opcional)</label>
+          <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+      </form>
+    </div>
+  </div>
+</div>

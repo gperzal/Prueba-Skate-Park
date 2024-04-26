@@ -1,0 +1,38 @@
+{{!-- Dentro de tu archivo views/partials/header.hbs --}}
+<nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="container">
+     <img src="/assets/img/logo.png" alt="Skate Park Logo" class="logo">
+    <a class="navbar-brand" href="/">Skate Park</a>
+   
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+  
+          <li class="nav-item">
+              <a class="nav-link" href="/api/skaters"><i class="bi bi-house-door-fill me-1"></i>Home</a>
+          </li>
+        <!-- Mostrar solo si el usuario NO está autenticado -->
+          <li class="nav-item">
+            <a id="register-link" class="nav-link" href="/register"> <i class="bi bi-person-fill-add me-1"></i></i>Registrarse</a>
+          </li>
+          <li class="nav-item">
+            <a id="login-link" class="nav-link" href="/login" ><i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión</a>
+          </li>
+            <li class="nav-item">
+                  <ins> <a id="welcome-message"  class="nav-link ">  </a></ins>
+              </li>
+      
+              <li class="nav-item">
+                <a id="logout-link" class="nav-link" id="logout"  style="display:none;"><i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión</a>
+              </li>
+
+            <li class="nav-item">
+              <a id="admin-link" class="nav-link" href="/admin" style="display:none;"><i class="bi bi-speedometer2 me-1"></i>Admin</a>
+            </li>
+     
+      </ul>
+    </div>
+  </div>
+</nav>
