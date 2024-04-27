@@ -46,26 +46,13 @@ router.get('/profile', async (req, res) => {
 
 
 
-// // Ruta para la administración, protegida y solo para admins
-// router.get('/admin', [protect, authorizeAdmin], (req, res) => {
-//     if (req.user) {
-//         // Renderizar la vista de perfil y pasar el usuario como contexto
-//         res.json({
-//             id: req.user.id,
-//             name: req.user.name,
-//             role: req.user.role,
-//         });
 
-//     } else {
-//         res.status(401).render('error', {
-//             message: 'Not authorized to view this page'
-//         });
-//     }
-// });
-
+router.get('/', (req, res) => {
+    redirect('/api/skaters');
+})
 
 // // Ruta para la administración, protegida y solo para admins
-router.get('/dashboardAdmin',  (req, res) => {
+router.get('/dashboardAdmin', (req, res) => {
     res.render('pages/admin', { title: 'Admin Dashboard', user: req.user });
 });
 

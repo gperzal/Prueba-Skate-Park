@@ -21,6 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+app.get('/', (req, res) => {
+  res.redirect('/api/skaters');
+});
 
 // Rutas
 app.use('/api/skaters', skaterRoutes);
@@ -29,10 +32,8 @@ app.use('/', frontendRoutes);
 
 
 
-
-
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
-    console.log(`\n🔥Servidor corriendo🔥 en http://localhost:${PORT}/api/skaters\n`);
+    console.log(`\n🔥Servidor corriendo🔥 en http://localhost:${PORT}/\n`);
   });
 });
