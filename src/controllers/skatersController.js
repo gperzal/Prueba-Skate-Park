@@ -55,12 +55,11 @@ export const registerSkater = async (req, res, next) => {
       return res.status(400).json({ message: 'No photo uploaded' });
     }
 
-    console.log(req.files);
-    console.log(req.files.photo);
+
 
     let uploadedFile = req.files.photo;
     const photoPath = `uploads/${uploadedFile.name}`;
-    console.log(photoPath);
+
     // Guardar archivo en el servidor
     uploadedFile.mv(`./public/${photoPath}`, async (err) => {
       if (err) {
@@ -112,7 +111,7 @@ export const loginSkater = async (req, res, next) => {
     );
 
     // res.json({ token });
-    res.json({ token, userName: skater.nombre, userRole: skater.role }); 
+    res.json({ token, userName: skater.nombre, userRole: skater.role });
   } catch (error) {
     next(error);
   }
@@ -129,11 +128,74 @@ export const getSkaters = async (req, res, next) => {
   }
 };
 
+export const getSkater = async (req, res, next) => {
+  try {
+    const skater = await Skater.findByPk(req.params.id);
+    if (!skater) {
+      return res.status(404).json({ message: 'Skater not found' });
+    }
+    res.json(skater);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+// export const updateSkater = async (req, res, next) => {
+//   const { id } = req.params;
+//   const { nombre, email, anos_experiencia, especialidad,  password, foto } = req.body;
+//   let photoPath;
+
+//   try {
+//     const skater = await Skater.findByPk(id);
+//     if (!skater) {
+//       return res.status(404).json({ message: "Skater not found" });
+//     }
+
+//     // Actualizar la contraseña si se proporciona una nueva
+//     if (password) {
+//       const hashedPassword = await bcrypt.hash(password, 10);
+//       skater.password = hashedPassword;
+//     }
+
+//     // Actualizar la foto si se sube una nueva
+//     if (req.files && req.files.photo) {
+//       const uploadedFile = req.files.photo;
+//       photoPath = `./public/uploads/${uploadedFile.name}`;
+
+//       // Eliminar la foto antigua si existe
+//       if (skater.foto && fs.existsSync(skater.foto)) {
+//         fs.unlinkSync(skater.foto);
+//       }
+
+//       // Guardar la nueva foto en el servidor
+//       uploadedFile.mv(photoPath, err => {
+//         if (err) {
+//           return res.status(500).json({ message: "Failed to upload new photo" });
+//         }
+//         skater.foto = photoPath;
+//       });
+//     }
+
+//     // Actualizar otros campos
+//     skater.nombre = nombre || skater.nombre;
+//     skater.anos_experiencia = anos_experiencia || skater.anos_experiencia;
+//     skater.especialidad = especialidad || skater.especialidad;
+
+//     // Guardar los cambios
+//     await skater.save();
+//     res.json({ message: "Skater updated successfully", skater });
+//   } catch (error) {
+//     console.error('Error updating skater:', error);
+//     res.status(500).json({ message: "Error updating skater." });
+//     next(error);
+//   }
+// };
+
 
 export const updateSkater = async (req, res, next) => {
   const { id } = req.params;
-  const { nombre, anos_experiencia, especialidad, estado, password } = req.body;
-  let photoPath;
+  const { nombre, anos_experiencia, especialidad, password } = req.body;
 
   try {
     const skater = await Skater.findByPk(id);
@@ -142,7 +204,7 @@ export const updateSkater = async (req, res, next) => {
     }
 
     // Actualizar la contraseña si se proporciona una nueva
-    if (password) {
+    if (password && password.trim()) {
       const hashedPassword = await bcrypt.hash(password, 10);
       skater.password = hashedPassword;
     }
@@ -150,37 +212,67 @@ export const updateSkater = async (req, res, next) => {
     // Actualizar la foto si se sube una nueva
     if (req.files && req.files.photo) {
       const uploadedFile = req.files.photo;
-      photoPath = `./public/uploads/${uploadedFile.name}`;
+      const photoPath = `uploads/${uploadedFile.name}`;
 
-      // Eliminar la foto antigua si existe
-      if (skater.foto && fs.existsSync(skater.foto)) {
-        fs.unlinkSync(skater.foto);
-      }
-
-      // Guardar la nueva foto en el servidor
-      uploadedFile.mv(photoPath, err => {
+      // Guardar archivo en el servidor
+      await uploadedFile.mv(`./public/${photoPath}`, (err) => {
         if (err) {
-          return res.status(500).json({ message: "Failed to upload new photo" });
+          return res.status(500).json({ message: "Failed to upload photo" });
         }
+
+        // Actualizar el camino de la foto en el registro del skater
         skater.foto = photoPath;
+        skater.nombre = nombre || skater.nombre;
+        skater.anos_experiencia = anos_experiencia || skater.anos_experiencia;
+        skater.especialidad = especialidad || skater.especialidad;
+
+        // Guardar los cambios
+        skater.save()
+          .then(updatedSkater => {
+            // Limpieza de la respuesta (opcional, para no enviar el password y otros campos no deseados)
+            const responseSkater = {
+              id: updatedSkater.id,
+              nombre: updatedSkater.nombre,
+              anos_experiencia: updatedSkater.anos_experiencia,
+              especialidad: updatedSkater.especialidad,
+              foto: `/uploads/${uploadedFile.name}`, // asegúrate de proporcionar la ruta correcta para la imagen
+            };
+
+            res.json({ message: "Skater updated successfully", skater: responseSkater });
+          })
+          .catch(saveError => {
+            console.error('Error saving skater:', saveError);
+            res.status(500).json({ message: "Error saving skater." });
+          });
       });
+    } else {
+      // Si no hay una nueva foto, simplemente actualizar los demás campos
+      skater.nombre = nombre || skater.nombre;
+      skater.anos_experiencia = anos_experiencia || skater.anos_experiencia;
+      skater.especialidad = especialidad || skater.especialidad;
+
+      skater.save()
+        .then(updatedSkater => {
+          const responseSkater = {
+            id: updatedSkater.id,
+            nombre: updatedSkater.nombre,
+            anos_experiencia: updatedSkater.anos_experiencia,
+            especialidad: updatedSkater.especialidad,
+            foto: updatedSkater.foto,
+          };
+          res.json({ message: "Skater updated successfully", skater: responseSkater });
+        })
+        .catch(saveError => {
+          console.error('Error saving skater:', saveError);
+          res.status(500).json({ message: "Error saving skater." });
+        });
     }
-
-    // Actualizar otros campos
-    skater.nombre = nombre || skater.nombre;
-    skater.anos_experiencia = anos_experiencia || skater.anos_experiencia;
-    skater.especialidad = especialidad || skater.especialidad;
-    skater.estado = estado !== undefined ? estado : skater.estado;
-
-    // Guardar los cambios
-    await skater.save();
-    res.json({ message: "Skater updated successfully", skater });
   } catch (error) {
     console.error('Error updating skater:', error);
     res.status(500).json({ message: "Error updating skater." });
-    next(error);
   }
 };
+
 
 
 

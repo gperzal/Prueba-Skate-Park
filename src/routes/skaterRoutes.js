@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { registerSkater, loginSkater, getSkaters, updateSkater, deleteSkater } from '../controllers/skatersController.js';
+import { registerSkater, loginSkater, getSkaters, updateSkater, deleteSkater, getSkater } from '../controllers/skatersController.js';
 import { validateSkater } from '../middlewares/validateSkater.js';
 import { protect } from '../middlewares/authMiddleware.js';
 import fileUpload from 'express-fileupload';
@@ -17,13 +17,14 @@ router.use(fileUpload({
 // router.get('/', home)
 
 // Ruta para registrar un nuevo participante
-router.post('/register', validateSkater, registerSkater);
+router.post('/register', validateSkater, registerSkater); //OK
 
 // Ruta para el inicio de sesión
-router.post('/login', loginSkater);
+router.post('/login', loginSkater); //OK
 
 // Ruta protegida para obtener todos los participantes
 router.get('/', getSkaters);     // OK
+router.get('/:id', getSkater);     // OK
 
 // Ruta protegida para actualizar un participante
 router.put('/:id', protect, updateSkater);

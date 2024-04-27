@@ -33,6 +33,6 @@ app.use('/', frontendRoutes);
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
-    console.log(`\nServidor corriendo en http://localhost:${PORT}/\n`);
+    console.log(`\n🔥Servidor corriendo🔥 en http://localhost:${PORT}/api/skaters\n`);
   });
 });

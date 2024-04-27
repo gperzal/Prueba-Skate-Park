@@ -1,13 +1,9 @@
 // frontendRoutes.js
 import express from 'express';
 import { protect, authorizeAdmin } from '../middlewares/authMiddleware.js';;  // Asegúrate de que las rutas de importación sean correctas
-
+import { Skater } from '../models/skaterModel.js';
 const router = express.Router();
 
-// Ruta para la página de inicio que muestra todos los skaters
-// router.get('/', (req, res) => {
-//     res.render('index', { title: 'Home', user: req.user || null });
-// });
 
 // Ruta para registro
 router.get('/register', (req, res) => {
@@ -29,22 +25,32 @@ router.get('/login', (req, res) => {
 });
 
 
+router.get('/profiles', protect, async (req, res) => {
+    if (req.user) {
+        // Renderizar la vista de perfil y pasar el usuario como contexto
+        res.json({
+            id: req.user.id,
+            name: req.user.name,
+            role: req.user.role,
 
-// Ruta para el perfil de usuario, protegida
-router.get('/profile', protect, (req, res) => {
+        });
+        
+    } else {
+        res.status(401).render('error', {
+            message: 'Not authorized to view this page'
+        });
+    }
+});
+router.get('/profile', async (req, res) => {
     res.render('pages/profile', { title: 'Your Profile', user: req.user });
 });
+
+
 
 // Ruta para la administración, protegida y solo para admins
 router.get('/admin', [protect, authorizeAdmin], (req, res) => {
     res.render('pages/admin', { title: 'Admin Dashboard', user: req.user });
 });
 
-// Ruta para cerrar sesión
-// router.get('/logout', protect, (req, res) => {
-//     // Lógica para "cerrar sesión" al usuario
-//     req.session.destroy();
-//     res.redirect('/');
-// });
 
 export default router;

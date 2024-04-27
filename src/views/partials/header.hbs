@@ -20,17 +20,21 @@
           <li class="nav-item">
             <a id="login-link" class="nav-link" href="/login" ><i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión</a>
           </li>
+          {{!-- Mostrar solo si el usuario SI está autenticado --}}
             <li class="nav-item">
                   <ins> <a id="welcome-message"  class="nav-link ">  </a></ins>
               </li>
-      
+
               <li class="nav-item">
-                <a id="logout-link" class="nav-link" id="logout"  style="display:none;"><i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión</a>
-              </li>
+              <a id="profile-link" class="nav-link"  style="display:none;"><i class="bi bi-person-fill me-1"></i></i>Perfil</a>
+            </li>
 
             <li class="nav-item">
               <a id="admin-link" class="nav-link" href="/admin" style="display:none;"><i class="bi bi-speedometer2 me-1"></i>Admin</a>
             </li>
+              <li class="nav-item">
+                <a id="logout-link" class="nav-link" id="logout"  style="display:none;"><i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión</a>
+              </li>
      
       </ul>
     </div>

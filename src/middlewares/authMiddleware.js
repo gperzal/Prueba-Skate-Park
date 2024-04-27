@@ -13,10 +13,8 @@ const protect = (req, res, next) => {
 
             // Verificar el token
             const decoded = jwt.verify(token, jwtSecret);
-
             // Adjuntar el usuario al objeto de solicitud
             req.user = decoded;  // Aquí, `decoded` es el payload que incluiste al firmar el token
-
             next();
         } catch (error) {
             res.status(401).json({ message: 'Not authorized, token failed' });
