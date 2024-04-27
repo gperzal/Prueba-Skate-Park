@@ -28,7 +28,11 @@ export function setupAuth() {
         getUserProfile(authToken);
     })
 
-
+    //admin
+    adminLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleAdminAccess(authToken, userRole);
+    });
 
     if (authToken) {
         loginLink.style.display = 'none';  // Ocultar enlace de login
@@ -52,6 +56,21 @@ export function setupAuth() {
 
 
 }
+
+function handleAdminAccess(token, role) {
+
+    if (role === 'admin') {
+        window.location.href = 'http://localhost:3000/admin/dashboard';
+      
+    } else {
+        // Si no es 'admin', puedes redirigir a home o mostrar un mensaje
+        alert('Acceso denegado. Solo los administradores pueden entrar aquí.');
+        window.location.href = '/api/skaters'; // Redirige a la página de inicio
+    }
+
+
+}
+
 
 
 
@@ -101,7 +120,7 @@ function getUserProfile(authToken) {
         .then(data => {
             sessionStorage.setItem('userData', JSON.stringify(data));
             window.location.href = '/profile';
-           
+
         })
         .catch(error => {
             console.error('Error al obtener el perfil:', error);

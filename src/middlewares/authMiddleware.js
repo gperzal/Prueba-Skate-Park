@@ -5,6 +5,7 @@ const jwtSecret = process.env.JWT_SECRET
 
 const protect = (req, res, next) => {
     let token;
+    console.log("req.headers.authorization: ", req.headers.authorization)
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
@@ -30,6 +31,8 @@ const authorizeAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') {
         console.log(req.user);
         console.log(req.user.role);
+
+        confirm('Es Super Admin');
         return res.status(403).json({ message: 'Access denied' });
     }
     next();

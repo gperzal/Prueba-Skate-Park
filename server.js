@@ -24,7 +24,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/skaters', skaterRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 app.use('/', frontendRoutes);
 
 

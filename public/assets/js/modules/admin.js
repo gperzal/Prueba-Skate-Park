@@ -1,27 +1,44 @@
 // modules/admin.js
 export function initAdminPanel() {
-    // Ejemplo: Agregar el manejo de eventos para los botones de "Aprobar" y "Eliminar"
-    document.querySelectorAll('.approve-button').forEach(button => {
-        button.addEventListener('click', handleApprove);
+
+
+
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+
+            changeStatus(checkbox.getAttribute('data-skater-id'), checkbox.checked);
+        });
     });
 
-    document.querySelectorAll('.delete-button').forEach(button => {
-        button.addEventListener('click', handleDelete);
-    });
+
+
+
 }
 
-function handleApprove(event) {
-    const userId = event.target.dataset.userId;
-    // Lógica para aprobar al usuario...
-    console.log(`Aprobando al usuario con ID: ${userId}`);
-    // Aquí iría el código para realizar una solicitud fetch al servidor
-}
+function changeStatus(skaterId, estado) {
 
-function handleDelete(event) {
-    const userId = event.target.dataset.userId;
-    // Lógica para eliminar al usuario...
-    console.log(`Eliminando al usuario con ID: ${userId}`);
-    // Aquí iría el código para realizar una solicitud fetch al servidor
+    // Opción para enviar la solicitud con fetch
+    fetch(`/admin/approve/${skaterId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`
+        },
+        body: JSON.stringify({ estado }) // Envía el estado actual del checkbox
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Problem updating skater status');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+            window.location.reload();
+            // Aquí podrías hacer algo con la respuesta, como actualizar la interfaz de usuario
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
-
-// Puedes agregar más funciones administrativas según sea necesario

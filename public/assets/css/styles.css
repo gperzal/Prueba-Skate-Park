@@ -61,6 +61,13 @@ body {
     transition: background-color 0.3s ease;
   }
   
+  .switch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ajusta la altura según necesites */
+  }
+
   button:hover {
     background-color: var(--color-secondary);
   }

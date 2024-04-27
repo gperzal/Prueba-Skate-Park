@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
-import { Console } from 'console';
+
 
 // secretKey para JWT
 const jwtSecret = process.env.JWT_SECRET
