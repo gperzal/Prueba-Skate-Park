@@ -4,6 +4,10 @@
   <h1 class="text-center mb-4">Tu Perfil</h1>
   <div class="row justify-content-center">
     <div class="col-md-8">
+      {{!-- Loading --}}
+      <div class="loader" style="display: none;" >Loading...</div>
+
+
       <form id="profileForm" action="/api/skaters/" method="PUT" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="nombre" class="form-label">Nombre</label>

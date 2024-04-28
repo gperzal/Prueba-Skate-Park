@@ -1,7 +1,6 @@
 // frontendRoutes.js
 import express from 'express';
-import { protect, authorizeAdmin } from '../middlewares/authMiddleware.js';;  // Asegúrate de que las rutas de importación sean correctas
-import { Skater } from '../models/skaterModel.js';
+import { protect } from '../middlewares/authMiddleware.js';;  // Asegúrate de que las rutas de importación sean correctas
 const router = express.Router();
 
 
@@ -45,7 +44,9 @@ router.get('/profile', async (req, res) => {
 });
 
 
-
+router.get('/about', (req, res) => {
+    res.render('pages/about', { title: 'About' });
+});
 
 router.get('/', (req, res) => {
     redirect('/api/skaters');

@@ -1,7 +1,8 @@
-// modules/auth.js
 
 export function setupAuth() {
     // En auth.js
+
+
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', handleLoginSubmit);
@@ -19,6 +20,7 @@ export function setupAuth() {
     const adminLink = document.getElementById('admin-link');
     const registerLink = document.getElementById('register-link');
     const profileLink = document.getElementById('profile-link');
+    const aboutLink = document.getElementById('about-link');
     const welcomeMessage = document.getElementById('welcome-message');
 
 
@@ -39,6 +41,7 @@ export function setupAuth() {
         logoutLink.style.display = 'block';  // Mostrar enlace de logout
         profileLink.style.display = 'block';    // Mostrar enlace de perfil
         registerLink.style.display = 'none';
+        welcomeMessage.display = 'block';
         welcomeMessage.innerHTML = `Bienvenido, ${userName}`;
 
         if (userRole === 'admin') {
@@ -61,7 +64,7 @@ function handleAdminAccess(token, role) {
 
     if (role === 'admin') {
         window.location.href = 'http://localhost:3000/admin/dashboard';
-      
+
     } else {
         // Si no es 'admin', puedes redirigir a home o mostrar un mensaje
         alert('Acceso denegado. Solo los administradores pueden entrar aquí.');
@@ -105,7 +108,9 @@ function handleLoginSubmit(event) {
 
 // Función para obtener el perfil del usuario
 function getUserProfile(authToken) {
+    showLoader();
     fetch('/profiles', {
+
         headers: {
             method: 'GET',
             'Authorization': `Bearer ${(authToken)}`
@@ -124,5 +129,24 @@ function getUserProfile(authToken) {
         })
         .catch(error => {
             console.error('Error al obtener el perfil:', error);
+        }).finally(() => {
+            hideLoader();
         });
+}
+
+
+
+
+function showLoader() {
+    const loader = document.querySelector('.loader');
+    if (loader) {
+        loader.style.display = 'block';
+    }
+}
+
+function hideLoader() {
+    const loader = document.querySelector('.loader');
+    if (loader) {
+        loader.style.display = 'none';
+    }
 }
