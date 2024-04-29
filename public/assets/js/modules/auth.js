@@ -95,7 +95,7 @@ function handleLoginSubmit(event) {
             sessionStorage.setItem('authToken', data.token);
             sessionStorage.setItem('userName', data.userName);
             sessionStorage.setItem('userRole', data.userRole);
-            window.location.href = 'http://localhost:3000/api/skaters';
+            window.location.href = '/';
         })
         .catch(error => {
             console.error('Login failed:', error);

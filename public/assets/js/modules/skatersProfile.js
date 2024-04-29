@@ -82,8 +82,8 @@ export function skaterFunctions() {
                 })
                 .then(data => {
                     console.log('Perfil actualizado con éxito:', data);
-                    window.location.href = 'http://localhost:3000/api/skaters';
-                    // Aquí deberías redirigir al usuario o mostrar un mensaje de éxito
+                    window.location.href = '/';
+                  
                 })
                 .catch(error => {
                     console.error('Error al actualizar el perfil:', error);
@@ -113,12 +113,12 @@ export function skaterFunctions() {
                 })
                 .then(data => {
                     console.log('Perfil eliminado:', data);
-                    window.location.href = 'http://localhost:3000/api/skaters';
-                    // Aquí deberías redirigir al usuario o mostrar un mensaje de eliminación exitosa
+                    window.location.href = '/';
+                
                 })
                 .catch(error => {
                     console.error('Error al eliminar el perfil:', error);
-                    // Aquí deberías mostrar un mensaje de error al usuario
+                  
                 })
         })
 
