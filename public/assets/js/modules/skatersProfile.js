@@ -81,7 +81,7 @@ export function skaterFunctions() {
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Perfil actualizado con éxito:', data);
+                    console.log('Perfil actualizado con éxito:', data);     
                     window.location.href = '/';
                   
                 })
@@ -113,6 +113,7 @@ export function skaterFunctions() {
                 })
                 .then(data => {
                     console.log('Perfil eliminado:', data);
+                    sessionStorage.clear();
                     window.location.href = '/';
                 
                 })

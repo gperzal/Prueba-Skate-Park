@@ -50,8 +50,13 @@ export const registerSkater = async (req, res, next) => {
         estado: false
       });
 
+      let skaters = await Skater.findAll();
+      skaters = JSON.parse(JSON.stringify(skaters));
       // res.status(201).json({ message: "Skater registered successfully", skater });
-      res.redirect('/api/skaters/');
+      // res.redirect('/api/skaters/');
+      // enviada la ruta inicio "/"
+      res.redirect('/');
+
     });
   } catch (error) {
     next(error);  // Pasa el error al middleware de manejo de errores
@@ -109,58 +114,6 @@ export const getSkater = async (req, res, next) => {
     next(error);
   }
 };
-
-
-// export const updateSkater = async (req, res, next) => {
-//   const { id } = req.params;
-//   const { nombre, email, anos_experiencia, especialidad,  password, foto } = req.body;
-//   let photoPath;
-
-//   try {
-//     const skater = await Skater.findByPk(id);
-//     if (!skater) {
-//       return res.status(404).json({ message: "Skater not found" });
-//     }
-
-//     // Actualizar la contraseña si se proporciona una nueva
-//     if (password) {
-//       const hashedPassword = await bcrypt.hash(password, 10);
-//       skater.password = hashedPassword;
-//     }
-
-//     // Actualizar la foto si se sube una nueva
-//     if (req.files && req.files.photo) {
-//       const uploadedFile = req.files.photo;
-//       photoPath = `./public/uploads/${uploadedFile.name}`;
-
-//       // Eliminar la foto antigua si existe
-//       if (skater.foto && fs.existsSync(skater.foto)) {
-//         fs.unlinkSync(skater.foto);
-//       }
-
-//       // Guardar la nueva foto en el servidor
-//       uploadedFile.mv(photoPath, err => {
-//         if (err) {
-//           return res.status(500).json({ message: "Failed to upload new photo" });
-//         }
-//         skater.foto = photoPath;
-//       });
-//     }
-
-//     // Actualizar otros campos
-//     skater.nombre = nombre || skater.nombre;
-//     skater.anos_experiencia = anos_experiencia || skater.anos_experiencia;
-//     skater.especialidad = especialidad || skater.especialidad;
-
-//     // Guardar los cambios
-//     await skater.save();
-//     res.json({ message: "Skater updated successfully", skater });
-//   } catch (error) {
-//     console.error('Error updating skater:', error);
-//     res.status(500).json({ message: "Error updating skater." });
-//     next(error);
-//   }
-// };
 
 
 export const updateSkater = async (req, res, next) => {

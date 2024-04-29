@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   skaterFunctions();
 
 
+
+
+  
   const logoutButton = document.getElementById('logout-link');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
