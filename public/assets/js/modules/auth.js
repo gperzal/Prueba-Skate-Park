@@ -63,7 +63,7 @@ function handleAdminAccess(token, role) {
 
     if (role === 'admin') {
         window.location.href = `/admin/dashboard/`;
-     
+
 
     } else {
 
@@ -91,6 +91,7 @@ function handleLoginSubmit(event) {
             return response.json();
         })
         .then(data => {
+            console.log("Login successful:", data);
             // Almacenar el token y otros datos del usuario
             sessionStorage.setItem('authToken', data.token);
             sessionStorage.setItem('userName', data.userName);
@@ -99,7 +100,7 @@ function handleLoginSubmit(event) {
         })
         .catch(error => {
             console.error('Login failed:', error);
-            // Mostrar mensaje de error
+
         });
 }
 
