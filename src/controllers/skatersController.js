@@ -8,36 +8,6 @@ import path from 'path';
 // secretKey para JWT
 const jwtSecret = process.env.JWT_SECRET
 
-// Controlador para registrar un nuevo participante
-// export const registerSkater = async (req, res, next) => {
-//   const { email, nombre, password, anos_experiencia, especialidad, foto } = req.body;
-//   console.log(req.body)
-//   try {
-//     // Verificar si el email ya está registrado
-//     const existingUser = await Skater.findOne({ where: { email } });
-//     if (existingUser) {
-//       return res.status(400).json({ message: "Email already registered." });
-//     }
-
-//     // Encriptar la contraseña
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     // Crear el nuevo participante
-//     const skater = await Skater.create({
-//       email,
-//       nombre,
-//       password: hashedPassword,
-//       anos_experiencia,
-//       especialidad,
-//       foto,
-//       estado: false
-//     });
-//     res.status(201).json(skater);
-//   } catch (error) {
-//     console.error('Error during Skater creation:', error.message);
-//     next(error);  // Pasa el error al middleware de manejo de errores
-//   }
-// };
 
 export const registerSkater = async (req, res, next) => {
   const { email, nombre, password, anos_experiencia, especialidad } = req.body;

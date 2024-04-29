@@ -3,14 +3,15 @@ import { Skater } from '../models/skaterModel.js';
 import path from 'path';
 export const getDashboard = async (req, res) => {
     try {
-        console.log("en getDashboard");
+
         let skaters = await Skater.findAll();
         skaters = JSON.parse(JSON.stringify(skaters));
         // res.render(path.resolve("src", "views", "pages", "admin.hbs"), { skaters: skaters });
+        console.log("OK render");
         res.render('pages/admin', {
             title: 'Admin Dashboard',
             user: req.user,
-            skaters: skaters // Asegúrate de que la plantilla 'admin.hbs' espere una variable 'skaters'
+            skaters: skaters
         });
     } catch (error) {
         res.status(500).json({ message: 'Error accessing admin dashboard.' });

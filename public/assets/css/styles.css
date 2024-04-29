@@ -175,9 +175,13 @@ button:hover {
   padding: 2rem;
   color: #ffffff;
 }
-
-
-
+.card-glass {
+  background: rgba(17, 2, 2, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 2rem;
+  color: #f0e9e9;
+}
 /* Footer */
 
 footer img {

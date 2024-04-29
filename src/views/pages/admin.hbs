@@ -1,9 +1,9 @@
 {{!< layouts/main }}
 
 <!-- Lista de participantes para administración -->
-<section class="container mt-5">
-  <h2>Administración de Participantes</h2>
-  <table class="table">
+<section class="container w-50 mt-5">
+  <h2 class="text-white">Administración de Participantes</h2>
+  <table class="table table-dark">
     <thead>
       <tr>
         <th>ID</th>
@@ -20,7 +20,7 @@
       <tr>
           <td>{{this.id}}</td>
           <td>
-            <div class="profile-picture" style="background-image: url(../{{this.foto}});"></div>
+            <div class="profile-picture" style="background-image: url(/{{this.foto}});"></div>
           </td>
           <td>{{this.nombre}}</td>
           <td>{{this.anos_experiencia}} años</td>

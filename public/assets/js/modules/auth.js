@@ -20,7 +20,6 @@ export function setupAuth() {
     const adminLink = document.getElementById('admin-link');
     const registerLink = document.getElementById('register-link');
     const profileLink = document.getElementById('profile-link');
-    const aboutLink = document.getElementById('about-link');
     const welcomeMessage = document.getElementById('welcome-message');
 
 
@@ -63,12 +62,13 @@ export function setupAuth() {
 function handleAdminAccess(token, role) {
 
     if (role === 'admin') {
-        window.location.href = 'http://localhost:3000/admin/dashboard';
+        window.location.href = `/admin/dashboard/`;
+     
 
     } else {
-        // Si no es 'admin', puedes redirigir a home o mostrar un mensaje
+
         alert('Acceso denegado. Solo los administradores pueden entrar aquí.');
-        window.location.href = '/api/skaters'; // Redirige a la página de inicio
+        window.location.href = '/'; // Redirige a la página de inicio
     }
 
 
