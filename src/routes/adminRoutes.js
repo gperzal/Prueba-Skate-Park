@@ -1,10 +1,10 @@
 import express from 'express';
 import { getDashboard, approveUser } from '../controllers/adminController.js';
-import { protect } from '../middlewares/authMiddleware.js';
+import { protectAdmin } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/dashboard/', getDashboard);
+router.get('/dashboard/', protectAdmin, getDashboard);
 router.put('/approve/:id', approveUser);
 
 export default router;

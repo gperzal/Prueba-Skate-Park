@@ -13,8 +13,6 @@ router.use(fileUpload({
     limits: { fileSize: 5 * 1024 * 1024 }, // Ejemplo: límite de tamaño de archivo de 5MB
 }));
 
-// //Ruta Home
-// router.get('/', home)
 
 // Ruta para registrar un nuevo participante
 router.post('/register', validateSkater, registerSkater); //OK

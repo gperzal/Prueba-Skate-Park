@@ -58,12 +58,32 @@ export function setupAuth() {
 
 
 }
-
+// window.location.href = `/admin/dashboard/`;
 function handleAdminAccess(token, role) {
 
     if (role === 'admin') {
-        window.location.href = `/admin/dashboard/`;
+        console.log('Acceso Admin permitido');
+         window.location.href = `/admin/dashboard/`;
+   
 
+        // fetch(`/admin/dashboard/`, {
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }, credentials: 'include'
+        // })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('No se pudo verificar el token');
+        //         }
+        //         return response.text();
+        //     })
+        //     .then(html => {
+        //         document.body.innegfrHTML = html; // Esto reemplazaría todo el body actual con la respuesta
+        //     })
+        //     .catch(error => {
+        //         console.error('Error verificando el token:', error);
+        //         alert('Acceso denegado o el token ha expirado.');
+        //     });
 
     } else {
 

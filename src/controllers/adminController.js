@@ -1,20 +1,20 @@
 
 import { Skater } from '../models/skaterModel.js';
-import path from 'path';
+
 export const getDashboard = async (req, res) => {
     try {
 
         let skaters = await Skater.findAll();
         skaters = JSON.parse(JSON.stringify(skaters));
-        // res.render(path.resolve("src", "views", "pages", "admin.hbs"), { skaters: skaters });
-        console.log("OK render");
+      
         res.render('pages/admin', {
             title: 'Admin Dashboard',
             user: req.user,
             skaters: skaters
         });
     } catch (error) {
-        res.status(500).json({ message: 'Error accessing admin dashboard.' });
+        // res.status(500).json({ message: 'Error accessing admin dashboard.' });
+        res.redirect('/nooo');
     }
 };
 

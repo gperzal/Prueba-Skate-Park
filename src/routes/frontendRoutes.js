@@ -1,6 +1,16 @@
 // frontendRoutes.js
 import express from 'express';
 import { protect } from '../middlewares/authMiddleware.js';;  // Asegúrate de que las rutas de importación sean correctas
+
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const publicPath = path.join(__dirname, '../../public/assets/pages');
+
+
+
 const router = express.Router();
 
 
@@ -53,9 +63,14 @@ router.get('/', (req, res) => {
 })
 
 // // Ruta para la administración, protegida y solo para admins
-router.get('/dashboardAdmin', (req, res) => {
-    res.render('pages/admin', { title: 'Admin Dashboard', user: req.user });
+router.get('/nooo', (req, res) => {
+    res.sendFile(path.join(publicPath, 'nooo.html'));
 });
+
+router.get('*', (req, res) => {
+    res.status(404).sendFile(path.join(publicPath, '404.html'));
+});
+
 
 
 export default router;

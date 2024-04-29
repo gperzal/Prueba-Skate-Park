@@ -85,6 +85,12 @@ export const loginSkater = async (req, res, next) => {
       { expiresIn: '1h' }
     );
 
+    res.cookie('jwt', token, {
+      httpOnly: true, // Impide que la cookie sea accedida por JavaScript en el cliente
+      secure: true,   // Asegura que la cookie solo se envía con solicitudes HTTPS
+      sameSite: 'Strict' // Evita el envío de la cookie junto con peticiones de sitios cruzados
+    });
+    
     // res.json({ token });
     res.json({ token, userName: skater.nombre, userRole: skater.role });
   } catch (error) {

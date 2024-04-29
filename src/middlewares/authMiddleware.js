@@ -28,4 +28,18 @@ export const protect = (req, res, next) => {
 };
 
 
-
+export const protectAdmin = (req, res, next) => {
+    const token = req.cookies.jwt; // Recupera el token de la cookie
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, jwtSecret);
+            req.user = decoded;
+            next();
+        } catch (error) {
+            res.status(401).json({ message: 'Not authorized, token failed' });
+        }
+    } else {
+        // res.status(401).json({ message: 'Not authorized, no token' });
+        res.redirect('/nooo');
+    }
+};
